@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Expense Manager</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="email">user@gmail.com</string>
+    <string name="name">user1</string>
+    <string name="sync">Sync</string>
+    <string name="abt">About Us</string>
+</resources>
