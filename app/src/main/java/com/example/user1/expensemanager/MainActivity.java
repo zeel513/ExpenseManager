@@ -50,7 +50,16 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(getApplicationContext(),income.class);
                 startActivity(intent);
             }
-        }
+        });
+        Button exp_button=(Button)findViewById(R.id.button2);
+        exp_button.setOnClickListener(new View.OnClickListener(){
+                                          @Override
+                                          public void onClick(View view)
+                                          {
+                                              Intent intent = new Intent(getApplicationContext(),expense.class);
+                                              startActivity(intent);
+                                          }
+                                      }
         );
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -105,17 +114,21 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_budget) {
 
-        } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_income) {
+            Intent intent = new Intent(getApplicationContext(),income.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_expense) {
+            Intent intent = new Intent(getApplicationContext(),expense.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_calc) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_conv) {
 
         }
 

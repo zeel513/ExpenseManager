@@ -3,19 +3,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="Home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_budget"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Budget" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_income"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Income" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_expense"
             android:icon="@drawable/ic_menu_manage"
             android:title="Expense" />
     </group>
@@ -23,11 +23,11 @@
     <item android:title="Tools">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_calc"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Calculator" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_conv"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Currency-Converter" />
         </menu>

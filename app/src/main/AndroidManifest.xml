@@ -18,9 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".income"
-                  android:label="Income">
-        </activity>
+        <activity
+            android:name=".income"
+            android:label="Income"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".expense"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".new_budget" />
+        <activity android:name=".budget"></activity>
     </application>
 
 </manifest>
