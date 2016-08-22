@@ -7,4 +7,30 @@
     <string name="name">user1</string>
     <string name="sync">Sync</string>
     <string name="abt">About Us</string>
+    <string-array name="inc_ctgy">
+        <item name="salary"> Salary </item>
+        <item name="personal_savings"> Personal Savings </item>
+        <item name="rent"> Rent </item>
+        <item name="pension"> Pensions </item>
+        <item name="account_transfer"> Account Transfer </item>
+        <item name="others"> Others </item>
+    </string-array>
+    <string-array name="inc_payer">
+        <item name="employer"> Employer</item>
+        <item name="bank"> Bank </item>
+        <item name="govt"> Government </item>
+        <item name="pension"> Pension </item>
+        <item name="others"> Others </item>
+    </string-array>
+    <string-array name="pay_method">
+        <item name="cash"> Cash</item>
+        <item name="cheque"> Cheque </item>
+        <item name="credit_card"> Credit Card </item>
+        <item name="debit"> Debit </item>
+        <item name="elec_trans"> Electronic Transfer </item>
+    </string-array>
+    <string name="title_activity_budget">budget</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
+

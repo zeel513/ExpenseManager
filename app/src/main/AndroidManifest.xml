@@ -24,9 +24,13 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".expense"
+            android:label="Expense"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".new_budget" />
-        <activity android:name=".budget"></activity>
+        <activity
+            android:name=".budget"
+            android:label="@string/title_activity_budget"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

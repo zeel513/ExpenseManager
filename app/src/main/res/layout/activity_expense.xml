@@ -12,17 +12,42 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:rowCount="3"
+        android:rowCount="4"
         android:columnCount="3"
         android:id="@+id/gridLayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Date:"
+            android:id="@+id/textView14"
+            android:textSize="14sp"
+            android:layout_gravity="left|center_vertical" />
+
+        <EditText
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/expense_date"
+            android:layout_gravity="left|center_vertical"
+            android:textAlignment="center" />
+
+        <ImageButton
+            android:layout_width="@android:dimen/notification_large_icon_width"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:id="@+id/expense_date_btn"
+            android:layout_gravity="center_vertical|right"
+            android:onClick="showDatePickerDialog"
+            android:src="@android:drawable/ic_menu_my_calendar" />
 
         <TextView
-            android:layout_width="110dp"
+            android:layout_width="100dip"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Amount:"
             android:id="@+id/textView20"
-            android:textSize="25dp"
+            android:textSize="14sp"
             android:layout_gravity="left|center_vertical" />
 
         <EditText
@@ -30,14 +55,15 @@
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
-            android:id="@+id/editText7"
+            android:id="@+id/expense_amt"
             android:layout_gravity="center_vertical|right" />
 
         <ImageButton
             android:layout_width="@android:dimen/notification_large_icon_width"
             android:layout_height="@android:dimen/notification_large_icon_height"
             android:id="@+id/imageButton6"
-            android:layout_gravity="center_vertical|right" />
+            android:layout_gravity="center_vertical|right"
+            android:baselineAlignBottom="false" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,22 +71,23 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Catagory:"
             android:id="@+id/textView21"
-            android:textSize="25dp"
+            android:textSize="14sp"
             android:layout_gravity="left|center_vertical" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:id="@+id/editText8"
+            android:id="@+id/expense_ctgy"
             android:layout_gravity="center_vertical|right"
             android:inputType="text" />
 
         <ImageButton
             android:layout_width="@android:dimen/notification_large_icon_width"
             android:layout_height="@android:dimen/notification_large_icon_height"
-            android:id="@+id/imageButton7"
-            android:layout_gravity="center_vertical|right" />
+            android:id="@+id/expense_ctgy_btn"
+            android:layout_gravity="center_vertical|right"
+            android:onClick="showCategory"/>
 
         <TextView
             android:layout_width="110dp"
@@ -68,22 +95,16 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Payment Method:"
             android:id="@+id/textView22"
-            android:textSize="25dp"
+            android:textSize="14sp"
             android:layout_gravity="left|center_vertical" />
 
-        <EditText
-            android:layout_width="wrap_content"
+        <Spinner
+            android:layout_width="176dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:id="@+id/editText9"
+            android:id="@+id/expense_pay_method"
             android:layout_gravity="center_vertical|right"
-            android:inputType="text" />
-
-        <ImageButton
-            android:layout_width="@android:dimen/notification_large_icon_width"
-            android:layout_height="@android:dimen/notification_large_icon_height"
-            android:id="@+id/imageButton8"
-            android:layout_gravity="center_vertical|right" />
+            android:onItemClickListener="onItemSelected"/>
     </GridLayout>
 
     <LinearLayout
@@ -100,13 +121,14 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Reference / Check No. :"
             android:id="@+id/textView23"
-            android:textSize="25dp"
-            android:layout_marginTop="10dp" />
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:textIsSelectable="false" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/editText6"
+            android:id="@+id/expense_rc_no"
             android:layout_marginTop="7dp" />
 
     </LinearLayout>
@@ -114,7 +136,7 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/view"
+        android:id="@+id/expense_btn_add"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
