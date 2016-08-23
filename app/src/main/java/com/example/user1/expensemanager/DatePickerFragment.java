@@ -20,7 +20,13 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
 
     static Calendar c = Calendar.getInstance();;
-
+    private static String activity_name;
+    static DatePickerFragment newInstance(String name)
+    {
+        DatePickerFragment dpf=new DatePickerFragment();
+        activity_name=name;
+        return dpf;
+    }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 
@@ -35,8 +41,27 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,day);
         //Log.d("Year", String.valueOf(c.get(Calendar.YEAR)));
-        EditText date  = (EditText)getActivity().findViewById(R.id.income_date);
+        //EditText date1  = (EditText)getActivity().findViewById(R.id.income_date);
+        //EditText date2 = (EditText)getActivity().findViewById(R.id.expense_date);
         String text = String.valueOf(day) + "-" +  String.valueOf(month+1) + "-" + String.valueOf(year);
-        date.setText(text);
+        if(activity_name.equals("income"))
+        {
+            EditText date=(EditText)getActivity().findViewById(R.id.income_date);
+            date.setText(text);
+        }
+        if(activity_name.equals("expense"))
+        {
+            EditText date=(EditText)getActivity().findViewById(R.id.expense_date);
+            date.setText(text);
+        }
+       /* try
+        {
+            date2.setText(text);
+        }
+        catch (Exception ex)
+        {
+            date1.setText(text);
+        }*/
+
     }
 }

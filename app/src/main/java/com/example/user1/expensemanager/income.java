@@ -10,6 +10,7 @@ import android.content.Context;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,7 +23,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Date;
 
-public class income extends AppCompatActivity{
+public class income extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
    /* private ImageButton income_date_btn;
     private ImageButton income_amt_btn;
@@ -53,8 +54,11 @@ public class income extends AppCompatActivity{
         income_date = (EditText) findViewById(R.id.income_date);
         income_amt = (EditText) findViewById(R.id.income_amt);
         income_payer = (Spinner) findViewById(R.id.income_payer);
+        income_payer.setOnItemSelectedListener(this);
         income_ctgy = (Spinner) findViewById(R.id.income_ctgy);
+        income_ctgy.setOnItemSelectedListener(this);
         income_pay_method = (Spinner) findViewById(R.id.income_pay_method);
+        income_pay_method.setOnItemSelectedListener(this);
         income_ref = (EditText) findViewById(R.id.income_rc_no);
         income_btn_add = (FloatingActionButton)findViewById(R.id.income_btn_add);
 
@@ -79,26 +83,8 @@ public class income extends AppCompatActivity{
         income_pay_method.setAdapter(adapter2);
     }
 
-    public void onItemSelected(View v) {
-        Spinner clicked = (Spinner) v;
-        switch(clicked.getId())
-        {
-            case R.id.income_ctgy:
-                category = String.valueOf(income_ctgy.getSelectedItem());
-                break;
-            case R.id.income_pay_method:
-                pay_method = String.valueOf(income_pay_method.getSelectedItem());
-                break;
-
-            case R.id.income_payer:
-                payer = String.valueOf(income_payer.getSelectedItem());
-                break;
-            default:
-                break;
-        }
-    }
     public void showDatePickerDialog(View v){
-        newFragment = new DatePickerFragment();
+        newFragment = DatePickerFragment.newInstance("income");
         newFragment.show(getSupportFragmentManager(),"datePicker");
         /*Calendar c = DatePickerFragment.getCalendar();
         int year = c.get(Calendar.YEAR);
@@ -139,5 +125,28 @@ public class income extends AppCompatActivity{
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+      //  Spinner clicked = (Spinner) view;
+        switch(view.getId())
+        {
+            case R.id.income_ctgy:
+                category = String.valueOf(income_ctgy.getSelectedItem());
+                break;
+            case R.id.income_pay_method:
+                pay_method = String.valueOf(income_pay_method.getSelectedItem());
+                break;
 
+            case R.id.income_payer:
+                payer = String.valueOf(income_payer.getSelectedItem());
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

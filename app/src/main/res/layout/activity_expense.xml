@@ -103,8 +103,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/expense_pay_method"
-            android:layout_gravity="center_vertical|right"
-            android:onItemClickListener="onItemSelected"/>
+            android:layout_gravity="center_vertical|right" />
     </GridLayout>
 
     <LinearLayout
@@ -140,6 +139,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="66dp" />
+        android:layout_marginBottom="66dp"
+        android:onClick="save"/>
 
 </RelativeLayout>

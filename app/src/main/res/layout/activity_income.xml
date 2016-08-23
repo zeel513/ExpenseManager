@@ -81,8 +81,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/income_payer"
-            android:layout_gravity="left|center_vertical"
-            android:onItemClickListener="onItemSelected"/>
+            android:layout_gravity="left|center_vertical" />
 
         <ImageButton
             android:layout_width="@android:dimen/notification_large_icon_width"
@@ -105,8 +104,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/income_pay_method"
-            android:layout_gravity="left|center_vertical"
-            android:onItemClickListener="onItemSelected"/>
+            android:layout_gravity="left|center_vertical" />
 
         <ImageButton
             android:layout_width="@android:dimen/notification_large_icon_width"
@@ -128,8 +126,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/income_ctgy"
-            android:layout_gravity="center_vertical|right"
-            android:onItemClickListener="onItemSelected"/>
+            android:layout_gravity="center_vertical|right" />
 
 
     </GridLayout>
