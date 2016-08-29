@@ -24,7 +24,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     static DatePickerFragment newInstance(String name)
     {
         DatePickerFragment dpf=new DatePickerFragment();
-        activity_name=name;
+        dpf.activity_name=name;
         return dpf;
     }
     @Override
@@ -40,7 +40,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         c.set(Calendar.YEAR,year);
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,day);
-        //Log.d("Year", String.valueOf(c.get(Calendar.YEAR)));
+        Log.d("Year", String.valueOf(c.get(Calendar.YEAR)));
         //EditText date1  = (EditText)getActivity().findViewById(R.id.income_date);
         //EditText date2 = (EditText)getActivity().findViewById(R.id.expense_date);
         String text = String.valueOf(day) + "-" +  String.valueOf(month+1) + "-" + String.valueOf(year);

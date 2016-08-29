@@ -4,6 +4,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,7 +15,8 @@ import android.widget.Toast;
 
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
+import java.util.StringTokenizer;
 
 public class expense extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -74,10 +76,21 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
 
     public void save(View v) {
         DatabaseHandler dbHandler = new DatabaseHandler(this);
+        String temp = exp_date.getText().toString();
+        StringTokenizer st=new StringTokenizer(temp,"-");
+        int day=Integer.parseInt(st.nextToken());
+        int month=Integer.parseInt(st.nextToken());
+        int year=Integer.parseInt(st.nextToken());
+        d=new Date(year-1900,month-1,day);
         int amt = Integer.parseInt(String.valueOf(exp_amt.getText()));
         String checkid = String.valueOf(exp_ref.getText());
+        pay_method = String.valueOf(exp_pay_method.getSelectedItem());
        // ctgy = String.valueOf(exp_ctgy.getText());
+        //Log.d("date",d.toString());
+        //Log.d("pay_method",pay_method);
+        Toast.makeText(this,d.toString(),Toast.LENGTH_LONG).show();
         boolean done = dbHandler.insertExpense(d,amt,"Food",pay_method,checkid);
+        //boolean done = dbHandler.insertExpense(d,100,"Food",pay_method,"xyz");
         if(!done) {
             Toast.makeText(this,"Insertion Unsuccessful",Toast.LENGTH_LONG).show();
         }
@@ -89,6 +102,7 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //        Spinner clicked = (Spinner) view;
+       /* Toast.makeText(getApplicationContext(),"in onitemselected",Toast.LENGTH_LONG).show();
         switch(view.getId())
         {
             case R.id.expense_pay_method:
@@ -96,7 +110,7 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
     @Override

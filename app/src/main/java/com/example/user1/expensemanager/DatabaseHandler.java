@@ -11,7 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by LENOVO on 21-08-2016.
@@ -41,11 +41,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createIncomeQuery = "create table " + INC_TABLE+ " (" + INC_COLUMN_DATE + " date," + INC_COLUMN_AMOUNT +
+        String createIncomeQuery = "create table " + INC_TABLE+ " (" + INC_COLUMN_DATE + " date, " + INC_COLUMN_AMOUNT +
                 " integer," + INC_COLUMN_PAYER + " text," + INC_COLUMN_CATEGORY + " text," + INC_COLUMN_PAY_METHOD +
                 " text," + INC_COLUMN_CHECK_ID + " text)";
         db.execSQL(createIncomeQuery);
-        String createExpeneQuery = "create table " + EXP_TABLE + " (" + EXP_COLUMN_DATE + "date," + EXP_COLUMN_AMOUNT +
+        String createExpeneQuery = "create table " + EXP_TABLE + " (" + EXP_COLUMN_DATE + " date, " + EXP_COLUMN_AMOUNT +
                 " integer," + EXP_COLUMN_CATEGORY + " text," + EXP_COLUMN_PAY_METHOD + " text," + EXP_COLUMN_CHECK_ID +
                 " text)";
         db.execSQL(createExpeneQuery);
@@ -80,7 +80,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     public boolean insertExpense(Date date , int amount, String category, String pay_method, String check_id){
         boolean done = false;
-        Log.d("Errorrrrrrrrrrr",date.toString());
+//        Log.d("Errorrrrrrrrrrr",date.toString());
        // Toast.makeText(this,"hekki",Toast.LENGTH_LONG).show();
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

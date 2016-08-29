@@ -29,8 +29,9 @@
         <activity android:name=".new_budget" />
         <activity
             android:name=".budget"
-            android:label="@string/title_activity_budget"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="Budget"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>
