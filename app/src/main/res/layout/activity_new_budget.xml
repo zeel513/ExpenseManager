@@ -21,7 +21,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Category:"
             android:id="@+id/textView24"
-            android:textSize="25dp"
+            android:textSize="14sp"
             android:layout_gravity="left|center_vertical" />
 
         <EditText
@@ -44,7 +44,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="From:"
             android:id="@+id/textView25"
-            android:textSize="25dp"
+            android:textSize="14sp"
             android:layout_gravity="left|center_vertical" />
 
         <EditText
@@ -70,7 +70,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="To:"
             android:id="@+id/textView26"
-            android:textSize="25dp"
+            android:textSize="14sp"
             android:layout_gravity="left|center_vertical" />
 
         <EditText
@@ -96,7 +96,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Amount:"
             android:id="@+id/textView27"
-            android:textSize="25dp"
+            android:textSize="14sp"
             android:layout_gravity="left|center_vertical" />
 
         <EditText
@@ -119,7 +119,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Alert Amount:"
             android:id="@+id/textView28"
-            android:textSize="25dp"
+            android:textSize="14sp"
             android:layout_gravity="left|center_vertical" />
 
         <EditText
@@ -144,7 +144,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Note: Notify in status bar once a day when expenses exceed alert amount."
         android:id="@+id/textView29"
-        android:textSize="25dp"
+        android:textSize="14sp"
         android:layout_gravity="left|center_vertical"
         android:layout_marginTop="7dp" />
     <android.support.design.widget.FloatingActionButton

@@ -77,6 +77,11 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
         int amt = Integer.parseInt(String.valueOf(exp_amt.getText()));
         String checkid = String.valueOf(exp_ref.getText());
        // ctgy = String.valueOf(exp_ctgy.getText());
+        c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        d = new Date(year,month,day);
         boolean done = dbHandler.insertExpense(d,amt,"Food",pay_method,checkid);
         if(!done) {
             Toast.makeText(this,"Insertion Unsuccessful",Toast.LENGTH_LONG).show();

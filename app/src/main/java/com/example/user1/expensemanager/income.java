@@ -95,7 +95,7 @@ public class income extends AppCompatActivity implements AdapterView.OnItemSelec
 
     }
 
-    @Override
+    /*@Override
     public void onResume(){
         super.onResume();
         c = Calendar.getInstance();
@@ -107,14 +107,18 @@ public class income extends AppCompatActivity implements AdapterView.OnItemSelec
         String text = d.toString();
         income_date.setText(text);
         Log.d("hello","hello");
-
-    }
+    }*/
 
     public void save(View v) {
         DatabaseHandler dbHandler = new DatabaseHandler(this);
         int amt = Integer.parseInt(String.valueOf(income_amt.getText()));
-
+        c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        d = new Date(year,month,day);
         String checkid = String.valueOf(income_ref.getText());
+
         boolean done = dbHandler.insertIncome(d,amt,payer,category,pay_method,checkid);
         if(!done) {
             Toast.makeText(this,"Insertion Unsuccessful",Toast.LENGTH_LONG).show();
