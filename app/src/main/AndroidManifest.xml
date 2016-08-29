@@ -30,7 +30,12 @@
         <activity
             android:name=".budget"
             android:label="Budget"
+<<<<<<< HEAD
             android:theme="@style/AppTheme.NoActionBar"></activity>
+=======
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity"></activity>
+>>>>>>> 92776ee0927c4fbc79abd1e21553c4e5cd98cf66
     </application>
 
 </manifest>

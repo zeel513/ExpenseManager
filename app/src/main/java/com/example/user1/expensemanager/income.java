@@ -21,7 +21,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
+import java.util.StringTokenizer;
 
 public class income extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -95,28 +96,16 @@ public class income extends AppCompatActivity implements AdapterView.OnItemSelec
 
     }
 
-    /*@Override
-    public void onResume(){
-        super.onResume();
-        c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        d = new Date(year,month,day);
-        //String text = String.valueOf(day) + "-" +  String.valueOf(month+1) + "-" + String.valueOf(year);
-        String text = d.toString();
-        income_date.setText(text);
-        Log.d("hello","hello");
-    }*/
-
     public void save(View v) {
         DatabaseHandler dbHandler = new DatabaseHandler(this);
         int amt = Integer.parseInt(String.valueOf(income_amt.getText()));
-        c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        d = new Date(year,month,day);
+        String temp = income_date.getText().toString();
+        StringTokenizer st=new StringTokenizer(temp,"-");
+        int day=Integer.parseInt(st.nextToken());
+        int month=Integer.parseInt(st.nextToken());
+        int year=Integer.parseInt(st.nextToken());
+        d=new Date(year-1900,month-1,day);
+
         String checkid = String.valueOf(income_ref.getText());
 
         boolean done = dbHandler.insertIncome(d,amt,payer,category,pay_method,checkid);
