@@ -128,7 +128,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(),expense.class);
             startActivity(intent);
         } else if (id == R.id.nav_calc) {
-
+            Intent intent = new Intent(getApplicationContext(),new_budget.class);
+            startActivity(intent);
         } else if (id == R.id.nav_conv) {
 
         }

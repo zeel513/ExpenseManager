@@ -7,6 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 /**
@@ -25,6 +30,10 @@ public class Household extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    Context context;
+    ListView list;
+    ListViewAdapter adapter;
+    ArrayList<ListItem> items;
 
     public Household() {
         // Required empty public constructor
@@ -51,6 +60,7 @@ public class Household extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -61,6 +71,25 @@ public class Household extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //Toast.makeText(getActivity(),"test",Toast.LENGTH_LONG).show();
+        context = getActivity();
+        list = (ListView) getView().findViewById(R.id.household_list);
+        adapter = new ListViewAdapter(context, items);
+
+        // Binds the Adapter to the ListView
+        list.setAdapter(adapter);
+
+        // Capture ListView item click
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                ListItem selectedItem = items.get(position);
+                Toast.makeText(context, "App : " + selectedItem.getFromdate() + " selected",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
         return inflater.inflate(R.layout.fragment_household, container, false);
     }
 }

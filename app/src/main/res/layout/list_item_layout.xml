@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_gravity="center">
+    <ProgressBar android:id="@+id/progress"
+        android:layout_height="20dp"
+        android:layout_width="match_parent"
+        android:max="100">
+    </ProgressBar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13-09-2016"
+            android:textSize="15dp"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:id="@+id/to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13-09-2016"
+            android:textSize="15dp"
+            android:layout_gravity="right"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Amount"
+            android:textSize="15dp"/>
+        <TextView
+            android:id="@+id/amt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alert Amount"
+            android:textSize="15dp"/>
+        <TextView
+            android:id="@+id/alert_amt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+    </LinearLayout>
+
