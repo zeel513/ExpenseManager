@@ -18,7 +18,7 @@
         android:layout_gravity="center">
         <TextView
             android:id="@+id/from"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="13-09-2016"
             android:textSize="15dp"
@@ -30,7 +30,9 @@
             android:layout_height="wrap_content"
             android:text="13-09-2016"
             android:textSize="15dp"
-            android:layout_gravity="right"/>
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:textColor="#f90a0a" />
     </LinearLayout>
 
     <LinearLayout

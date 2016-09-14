@@ -25,14 +25,14 @@ public class ListViewAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<ListItem> items;
     private LayoutInflater inflater;
-
+	
     public ListViewAdapter(Context context, ArrayList<ListItem> items) {
         this.context = context;
         this.items = items;
     }
 
     @Override
-    public int getCount() {
+    public int getCount() {        
         return items.size();
     }
 
@@ -54,15 +54,15 @@ public class ListViewAdapter extends BaseAdapter {
         TextView to;
         TextView amt;
         TextView alert_amt;
-
+		
 
         View itemView;
 
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if(convertView == null)
-            itemView = inflater.inflate(R.layout.list_item_layout, parent, false);
+        if(convertView == null) 
+            itemView = inflater.inflate(R.layout.list_item_layout, parent, false);                    
         else
             itemView = convertView;
 

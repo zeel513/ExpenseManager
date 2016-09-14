@@ -31,7 +31,7 @@ public class Household extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Context context;
+
     ListView list;
     ListViewAdapter adapter;
     ArrayList<ListItem> items;
@@ -98,7 +98,7 @@ public class Household extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 ListItem selectedItem = items.get(position);
-                Toast.makeText(context, "App : " + selectedItem.getFromdate() + " selected",
+                Toast.makeText(getActivity(), "App : " + selectedItem.getFromdate() + " selected",
                         Toast.LENGTH_LONG).show();
             }
         });
