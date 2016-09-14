@@ -49,12 +49,12 @@ public class ListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         // Declare Variables
-       // ProgressBar pbar;
+        ProgressBar pbar;
         TextView from;
         TextView to;
         TextView amt;
         TextView alert_amt;
-		
+        TextView exp;
 
         View itemView;
 
@@ -74,13 +74,15 @@ public class ListViewAdapter extends BaseAdapter {
         to = (TextView) itemView.findViewById(R.id.to);
         amt = (TextView) itemView.findViewById(R.id.amt);
         alert_amt = (TextView) itemView.findViewById(R.id.alert_amt);
-        //pbar = (ProgressBar) itemView.findViewById(R.id.progress);
-
+        pbar = (ProgressBar) itemView.findViewById(R.id.progressBar);
+        exp=(TextView)itemView.findViewById(R.id.bud_exp);
         // Capture position and set to the TextViews
         from.setText(items.get(position).getFromdate());
         to.setText(items.get(position).getTodate());
         amt.setText(String.valueOf(items.get(position).getAmt()));
         alert_amt.setText(String.valueOf(items.get(position).getAlert_amt()));
+        pbar.setProgress(items.get(position).getProgressVal());
+        exp.setText(String.valueOf(items.get(position).getExpense()));
 
         return itemView;
     }

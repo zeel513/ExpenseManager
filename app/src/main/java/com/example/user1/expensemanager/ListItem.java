@@ -8,7 +8,17 @@ public class ListItem {
     private float alert_amt;
     private String fromdate;
     private String todate;
+    private float expense;
     private int progressVal;
+
+
+    public float getExpense() {
+        return expense;
+    }
+
+    public void setExpense(float expense) {
+        this.expense = expense;
+    }
 
     public float getAmt() {
         return amt;

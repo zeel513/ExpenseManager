@@ -36,6 +36,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public static final String EXP_COLUMN_PAY_METHOD = "PAY_METHOD";
     public static final String EXP_COLUMN_CHECK_ID = "Check_id";
 
+    public static final String BUDGET_TABLE="Budget";
+    public static final String BUDGET_COLUMN_FROM="Fromdate";
+    public static final String BUDGET_COLUMN_TO="Todate";
+    public static final String BUDGET_COLUMN_AMOUNT="Amount";
+    public static final String BUDGET_COLUMN_ALERT="Alert_Amount";
+    public static final String BUDGET_COLUMN_EXP="Expense";
+    public static final String BUDGET_COLUMN_CATEGORY="Category";
+
     public DatabaseHandler(Context context) {
         super(context,DB_NAME,null,DATABASE_VERSION);
     }
@@ -50,6 +58,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 " integer," + EXP_COLUMN_CATEGORY + " text," + EXP_COLUMN_PAY_METHOD + " text," + EXP_COLUMN_CHECK_ID +
                 " text)";
         db.execSQL(createExpeneQuery);
+        String createBudgetQuery="create table " + BUDGET_TABLE + " ( " + BUDGET_COLUMN_FROM + " date, " + BUDGET_COLUMN_TO +
+                " date, " + BUDGET_COLUMN_AMOUNT + " integer," + BUDGET_COLUMN_ALERT + " integer, " +BUDGET_COLUMN_EXP +
+                " integer," + BUDGET_COLUMN_CATEGORY + " text)";
+        db.execSQL(createBudgetQuery);
     }
 
     @Override
@@ -59,6 +71,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         String dropExpQuery = "DROP TABLE IF EXISTS " + EXP_TABLE;
         db.execSQL(dropExpQuery);
+
+        String dropBudgetQuery = "DROP TABLE IF EXISTS " + BUDGET_TABLE;
+        db.execSQL(dropBudgetQuery);
     }
 
     public boolean insertIncome(Date date , int amount, String payer, String category, String pay_method, String check_id){

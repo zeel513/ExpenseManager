@@ -35,7 +35,7 @@ public class Household extends Fragment {
     ListView list;
     ListViewAdapter adapter;
     ArrayList<ListItem> items;
-
+    Context context;
     public Household() {
         // Required empty public constructor
     }
@@ -85,6 +85,8 @@ public class Household extends Fragment {
         my.setFromdate("Now");
         my.setAlert_amt(100);
         my.setAmt(1000);
+        my.setExpense(100);
+        my.setProgressVal((int) ((my.getExpense()/my.getAmt()) *100));
         items.add(my);
 
         adapter = new ListViewAdapter(context, items);

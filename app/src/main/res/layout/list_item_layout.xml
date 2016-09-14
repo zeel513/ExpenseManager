@@ -5,11 +5,14 @@
     android:orientation="vertical"
     android:layout_marginLeft="10dp"
     android:layout_gravity="center">
-    <!--<ProgressBar android:id="@+id/progress"
-        android:layout_height="20dp"
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:max="100">
-    </ProgressBar>-->
+        android:layout_height="50dp"
+        android:id="@+id/progressBar"
+        android:max="100"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,7 +47,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Amount"
+            android:text="Amount: "
             android:textSize="15dp"/>
         <TextView
             android:id="@+id/amt"
@@ -53,6 +56,26 @@
             android:textSize="15dp"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expense: "
+            android:textSize="15dp"/>
+        <TextView
+            android:id="@+id/bud_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
 
 
     <LinearLayout
@@ -64,7 +87,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alert Amount"
+            android:text="Alert Amount: "
             android:textSize="15dp"/>
         <TextView
             android:id="@+id/alert_amt"
