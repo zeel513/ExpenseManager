@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class Household extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Context context;
+
     ListView list;
     ListViewAdapter adapter;
     ArrayList<ListItem> items;
@@ -72,9 +73,17 @@ public class Household extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //Toast.makeText(getActivity(),"test",Toast.LENGTH_LONG).show();
-        context = getActivity();
-        list = (ListView) getView().findViewById(R.id.household_list);
-        adapter = new ListViewAdapter(context, items);
+        View rootView = inflater.inflate(R.layout.fragment_household, container, false);
+        list = (ListView) rootView.findViewById(R.id.household_list);
+        items=new ArrayList<ListItem>();
+        ListItem i=new ListItem();
+        i.setAlert_amt(1000);
+        i.setAmt(2000);
+        i.setFromdate("karan");
+        i.setTodate("zeel");
+        items.add(i);
+
+        adapter = new ListViewAdapter(rootView.getContext(), items);
 
         // Binds the Adapter to the ListView
         list.setAdapter(adapter);
@@ -85,7 +94,7 @@ public class Household extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 ListItem selectedItem = items.get(position);
-                Toast.makeText(context, "App : " + selectedItem.getFromdate() + " selected",
+                Toast.makeText(getActivity(), "App : " + selectedItem.getFromdate() + " selected",
                         Toast.LENGTH_LONG).show();
             }
         });

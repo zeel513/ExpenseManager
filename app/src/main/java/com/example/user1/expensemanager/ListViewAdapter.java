@@ -24,6 +24,11 @@ public class ListViewAdapter extends BaseAdapter {
     private ArrayList<ListItem> items;
     private LayoutInflater inflater;
     private int totalViewsCreated = 0;
+    ProgressBar pbar;
+    TextView from;
+    TextView to;
+    TextView amt;
+    TextView alert_amt;
 
     public ListViewAdapter(Context context, ArrayList<ListItem> items) {
         this.context = context;
@@ -32,6 +37,7 @@ public class ListViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        Log.d("b","returns get count "+items.size());
         return items.size();
     }
 
@@ -48,20 +54,17 @@ public class ListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         // Declare Variables
-        ProgressBar pbar;
-        TextView from;
-        TextView to;
-        TextView amt;
-        TextView alert_amt;
-
 
         View itemView;
 
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if(convertView == null)
+        if(convertView == null) {
+
             itemView = inflater.inflate(R.layout.list_item_layout, parent, false);
+            Log.d("a","hello hello");
+        }
         else
             itemView = convertView;
 
@@ -82,7 +85,7 @@ public class ListViewAdapter extends BaseAdapter {
         alert_amt.setText(String.valueOf(items.get(position).getAlert_amt()));
         // Capture position and set to the ImageView
 
-
+        Log.d("a1","values got set");
         return itemView;
     }
 
