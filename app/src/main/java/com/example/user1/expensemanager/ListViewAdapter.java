@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class ListViewAdapter extends BaseAdapter {
@@ -23,7 +25,6 @@ public class ListViewAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<ListItem> items;
     private LayoutInflater inflater;
-    private int totalViewsCreated = 0;
 
     public ListViewAdapter(Context context, ArrayList<ListItem> items) {
         this.context = context;
@@ -48,7 +49,7 @@ public class ListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         // Declare Variables
-        ProgressBar pbar;
+       // ProgressBar pbar;
         TextView from;
         TextView to;
         TextView amt;
@@ -73,15 +74,13 @@ public class ListViewAdapter extends BaseAdapter {
         to = (TextView) itemView.findViewById(R.id.to);
         amt = (TextView) itemView.findViewById(R.id.amt);
         alert_amt = (TextView) itemView.findViewById(R.id.alert_amt);
-        pbar = (ProgressBar) itemView.findViewById(R.id.progress);
+        //pbar = (ProgressBar) itemView.findViewById(R.id.progress);
 
         // Capture position and set to the TextViews
         from.setText(items.get(position).getFromdate());
         to.setText(items.get(position).getTodate());
         amt.setText(String.valueOf(items.get(position).getAmt()));
         alert_amt.setText(String.valueOf(items.get(position).getAlert_amt()));
-        // Capture position and set to the ImageView
-
 
         return itemView;
     }

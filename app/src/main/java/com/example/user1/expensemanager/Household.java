@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,11 +61,12 @@ public class Household extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d("A","In ONCREATE");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -72,8 +74,19 @@ public class Household extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //Toast.makeText(getActivity(),"test",Toast.LENGTH_LONG).show();
+
         context = getActivity();
-        list = (ListView) getView().findViewById(R.id.household_list);
+        View view = inflater.inflate(R.layout.fragment_household,container,false);
+        list = (ListView) view.findViewById(R.id.household_list);
+
+        items = new ArrayList<ListItem>();
+        ListItem my = new ListItem();
+        my.setTodate("B4");
+        my.setFromdate("Now");
+        my.setAlert_amt(100);
+        my.setAmt(1000);
+        items.add(my);
+
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView
@@ -89,7 +102,6 @@ public class Household extends Fragment {
                         Toast.LENGTH_LONG).show();
             }
         });
-
-        return inflater.inflate(R.layout.fragment_household, container, false);
+        return view;
     }
 }
