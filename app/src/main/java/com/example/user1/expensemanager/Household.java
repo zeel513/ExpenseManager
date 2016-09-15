@@ -79,16 +79,17 @@ public class Household extends Fragment {
         View view = inflater.inflate(R.layout.fragment_household,container,false);
         list = (ListView) view.findViewById(R.id.household_list);
 
-        items = new ArrayList<ListItem>();
+        /*items = new ArrayList<ListItem>();
         ListItem my = new ListItem();
         my.setTodate("B4");
         my.setFromdate("Now");
         my.setAlert_amt(100);
-        my.setAmt(1000);
-        my.setExpense(100);
+        my.setAmt(1000);my.setExpense(100);
         my.setProgressVal((int) ((my.getExpense()/my.getAmt()) *100));
         items.add(my);
-
+        */
+        DatabaseHandler db=new DatabaseHandler(context);
+        items=db.getBudgets("HouseHold");
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView

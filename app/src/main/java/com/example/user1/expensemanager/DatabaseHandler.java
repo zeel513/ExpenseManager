@@ -7,11 +7,15 @@ import android.database.DatabaseErrorHandler;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.sip.SipRegistrationListener;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 
 /**
@@ -97,6 +101,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public boolean insertExpense(Date date , int amount, String category, String pay_method, String check_id){
         boolean done = false;
         SQLiteDatabase db = this.getWritableDatabase();
+
+        boolean flag = updateBudget(amount,category,date);
+
         ContentValues contentValues = new ContentValues();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 
@@ -107,8 +114,85 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         contentValues.put(EXP_COLUMN_CHECK_ID,check_id);
         long id = 0;
         id = db.insert(EXP_TABLE,null,contentValues);// For time being it is null it should not be though
+        if (id > 0 && flag)
+            done = true;
+        return done;
+    }
+    public boolean insertBudget(String category,Date from,Date to,int amt,int alert_amt)
+    {
+        boolean done = false;
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+
+        contentValues.put(BUDGET_COLUMN_FROM,sdf.format(from));
+        contentValues.put(BUDGET_COLUMN_TO,sdf.format(to));
+        contentValues.put(BUDGET_COLUMN_CATEGORY,category);
+        contentValues.put(BUDGET_COLUMN_AMOUNT,amt);
+        contentValues.put(BUDGET_COLUMN_ALERT,alert_amt);
+        contentValues.put(BUDGET_COLUMN_EXP,0);
+
+        long id = 0;
+        id = db.insert(BUDGET_TABLE,null,contentValues);// For time being it is null it should not be though
         if (id > 0)
             done = true;
         return done;
+    }
+
+    public boolean updateBudget(int amount,String category,Date date){
+        Cursor cursor;
+        SQLiteDatabase db = getReadableDatabase();
+        String selectionClause = BUDGET_COLUMN_CATEGORY+" =? AND "+date+ " <= " + BUDGET_COLUMN_TO + " AND "+
+                date + " >= "+ BUDGET_COLUMN_FROM;
+        String [] selectionArgs= new String[] {category};
+
+      /*  String query = "select * from " + BUDGET_TABLE+ " where " +BUDGET_COLUMN_CATEGORY+" ="+
+                category +" AND" +date+ " <= " + BUDGET_COLUMN_TO + " AND "+
+                date + " >= "+ BUDGET_COLUMN_FROM;;*/
+        cursor = db.query(BUDGET_TABLE,null,selectionClause,selectionArgs,null,null,null);
+        int exp,alert;
+        if (cursor.moveToFirst())
+        {
+            exp = cursor.getInt((cursor.getColumnIndex(BUDGET_COLUMN_EXP)));
+            exp += amount;
+            alert = cursor.getInt((cursor.getColumnIndex(BUDGET_COLUMN_ALERT)));
+
+            ContentValues cv = new ContentValues();
+            cv.put(BUDGET_COLUMN_EXP,exp);
+            int x = db.update(BUDGET_TABLE,cv,selectionClause,selectionArgs);
+            if (x>0)
+            {
+                if(exp >= alert)
+                {
+                    //Notification
+                }
+                return true;
+            }
+
+        }
+
+        return false;
+
+    }
+    public ArrayList<ListItem> getBudgets(String category)
+    {
+        ArrayList<ListItem> items=new ArrayList<ListItem>();
+        Cursor cursor;
+        SQLiteDatabase db = getReadableDatabase();
+        String selectionClause = BUDGET_COLUMN_CATEGORY+" =?";
+        String [] selectionArgs= new String[] {category};
+        cursor = db.query(BUDGET_TABLE,null,selectionClause,selectionArgs,null,null,null);
+        ListItem temp=new ListItem();
+        while(cursor.moveToNext())
+        {
+            temp.setAmt(cursor.getFloat(cursor.getColumnIndex(BUDGET_COLUMN_AMOUNT)));
+            temp.setAlert_amt(cursor.getFloat(cursor.getColumnIndex(BUDGET_COLUMN_ALERT)));
+            temp.setExpense(cursor.getFloat(cursor.getColumnIndex(BUDGET_COLUMN_EXP)));
+            temp.setFromdate(cursor.getString(cursor.getColumnIndex(BUDGET_COLUMN_FROM)));
+            temp.setTodate(cursor.getString(cursor.getColumnIndex(BUDGET_COLUMN_TO)));
+            temp.setProgressVal((int) ((temp.getExpense()/temp.getAmt()) *100));
+            items.add(temp);
+        }
+        return items;
     }
 }
