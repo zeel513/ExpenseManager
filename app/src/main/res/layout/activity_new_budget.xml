@@ -62,7 +62,8 @@
             android:layout_height="@android:dimen/notification_large_icon_height"
             android:id="@+id/nb_fromdate_btn"
             android:layout_gravity="center_vertical|right"
-            android:src="@android:drawable/ic_menu_my_calendar" />
+            android:src="@android:drawable/ic_menu_my_calendar"
+            android:onClick="showDatePickerDialog"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,7 +89,8 @@
             android:layout_height="@android:dimen/notification_large_icon_height"
             android:id="@+id/nb_todate_btn"
             android:layout_gravity="center_vertical|right"
-            android:src="@android:drawable/ic_menu_my_calendar" />
+            android:src="@android:drawable/ic_menu_my_calendar"
+            android:onClick="showDatePickerDialog"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -150,8 +152,10 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nb_ok"
+        android:id="@+id/nb_add"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:onClick="addBudget"
+        android:src="@drawable/ic_add_circle_black_24dp"/>
 
 </LinearLayout>

@@ -54,6 +54,16 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
             EditText date=(EditText)getActivity().findViewById(R.id.expense_date);
             date.setText(text);
         }
+        if(activity_name.equals("new_budget_from"))
+        {
+            EditText date=(EditText)getActivity().findViewById(R.id.nb_fromdate);
+            date.setText(text);
+        }
+        if(activity_name.equals("new_budget_to"))
+        {
+            EditText date=(EditText)getActivity().findViewById(R.id.nb_todate);
+            date.setText(text);
+        }
        /* try
         {
             date2.setText(text);
