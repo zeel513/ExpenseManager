@@ -99,7 +99,7 @@ public class income extends AppCompatActivity implements AdapterView.OnItemSelec
 
     public void save(View v) {
         DatabaseHandler dbHandler = new DatabaseHandler(this);
-        int amt = Integer.parseInt(String.valueOf(income_amt.getText()));
+        Float amt = Float.parseFloat(String.valueOf(income_amt.getText()));
         String temp = income_date.getText().toString();
         StringTokenizer st=new StringTokenizer(temp,"-");
         int day=Integer.parseInt(st.nextToken());

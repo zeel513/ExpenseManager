@@ -56,7 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createIncomeQuery = "create table " + INC_TABLE+ " (" + INC_COLUMN_DATE + " date, " + INC_COLUMN_AMOUNT +
-                " integer," + INC_COLUMN_PAYER + " text," + INC_COLUMN_CATEGORY + " text," + INC_COLUMN_PAY_METHOD +
+                " float," + INC_COLUMN_PAYER + " text," + INC_COLUMN_CATEGORY + " text," + INC_COLUMN_PAY_METHOD +
                 " text," + INC_COLUMN_CHECK_ID + " text)";
         db.execSQL(createIncomeQuery);
         String createExpeneQuery = "create table " + EXP_TABLE + " (" + EXP_COLUMN_DATE + " date, " + EXP_COLUMN_AMOUNT +
@@ -81,7 +81,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.execSQL(dropBudgetQuery);
     }
 
-    public boolean insertIncome(Date date , int amount, String payer, String category, String pay_method, String check_id){
+    public boolean insertIncome(Date date , Float amount, String payer, String category, String pay_method, String check_id){
 
         boolean done = false;
         SQLiteDatabase db = this.getWritableDatabase();
