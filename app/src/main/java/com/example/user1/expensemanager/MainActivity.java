@@ -1,6 +1,8 @@
 package com.example.user1.expensemanager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    SharedPreferences sp;
 
     public double curr_bal=0; //get it from database
     public double mon_bal=0;
@@ -69,6 +72,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        sp = getPreferences(Context.MODE_PRIVATE);
+        curr_bal=sp.getFloat("CURRENT_BALANCE", (float) 0.0);
+        mon_bal=sp.getFloat("MONTHLY_BALANCE",(float) 0.0);
+        mon_income=sp.getFloat("MONTHLY_INCOME",(float) 0.0);
+        total_ex=sp.getFloat("TOTAL_EXPENSE",(float) 0.0);
+        mon_ex=sp.getFloat("MONTHLY_EXPENSE",(float) 0.0);
+        today_ex=sp.getFloat("TODAYS_EXPENSE",(float) 0.0);
     }
 
     @Override

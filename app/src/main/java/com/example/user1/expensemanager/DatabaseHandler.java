@@ -2,6 +2,7 @@ package com.example.user1.expensemanager;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.DatabaseUtils;
@@ -81,11 +82,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
     public boolean insertIncome(Date date , int amount, String payer, String category, String pay_method, String check_id){
+
         boolean done = false;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-        contentValues.put(INC_COLUMN_DATE,sdf.format(date));
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        contentValues.put(INC_COLUMN_DATE,date.toString());
         contentValues.put(INC_COLUMN_AMOUNT,amount);
         contentValues.put(INC_COLUMN_PAYER,payer);
         contentValues.put(INC_COLUMN_CATEGORY,category);
@@ -93,8 +95,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         contentValues.put(INC_COLUMN_CHECK_ID,check_id);
 
         long id = db.insert(INC_TABLE,null,contentValues);// For time being it is null it should not be though.
-        if (id > 0)
+        if (id > 0) {
             done = true;
+        }
         return done;
     }
 
@@ -105,16 +108,16 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         boolean flag = updateBudget(amount,category,date);
 
         ContentValues contentValues = new ContentValues();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 
-        contentValues.put(EXP_COLUMN_DATE,sdf.format(date));
+        contentValues.put(EXP_COLUMN_DATE,date.toString());
         contentValues.put(EXP_COLUMN_AMOUNT,amount);
         contentValues.put(EXP_COLUMN_CATEGORY,category);
         contentValues.put(EXP_COLUMN_PAY_METHOD,pay_method);
         contentValues.put(EXP_COLUMN_CHECK_ID,check_id);
         long id = 0;
         id = db.insert(EXP_TABLE,null,contentValues);// For time being it is null it should not be though
-        if (id > 0 && flag)
+        if (id > 0)
             done = true;
         return done;
     }
@@ -123,10 +126,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         boolean done = false;
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-
-        contentValues.put(BUDGET_COLUMN_FROM,sdf.format(from));
-        contentValues.put(BUDGET_COLUMN_TO,sdf.format(to));
+       // Log.d("to","to"+to.toString());
+       // Log.d("from","from"+from.toString());
+        contentValues.put(BUDGET_COLUMN_FROM,from.toString());
+        contentValues.put(BUDGET_COLUMN_TO,to.toString());
+        Log.d("to","to"+contentValues.getAsString(BUDGET_COLUMN_TO));
+        //Log.d("from","from"+from.toString());
         contentValues.put(BUDGET_COLUMN_CATEGORY,category);
         contentValues.put(BUDGET_COLUMN_AMOUNT,amt);
         contentValues.put(BUDGET_COLUMN_ALERT,alert_amt);
@@ -141,18 +146,22 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     public boolean updateBudget(int amount,String category,Date date){
         Cursor cursor;
+        String d=date.toString();
+
         SQLiteDatabase db = getReadableDatabase();
-        String selectionClause = BUDGET_COLUMN_CATEGORY+" =? AND "+date+ " <= " + BUDGET_COLUMN_TO + " AND "+
-                date + " >= "+ BUDGET_COLUMN_FROM;
-        String [] selectionArgs= new String[] {category};
+        String selectionClause = BUDGET_COLUMN_CATEGORY+" = ? AND " + BUDGET_COLUMN_TO + " >= ? AND "
+                + BUDGET_COLUMN_FROM + "<= ?";
+        String [] selectionArgs= new String[] {category,d,d};
 
       /*  String query = "select * from " + BUDGET_TABLE+ " where " +BUDGET_COLUMN_CATEGORY+" ="+
                 category +" AND" +date+ " <= " + BUDGET_COLUMN_TO + " AND "+
                 date + " >= "+ BUDGET_COLUMN_FROM;;*/
+        Log.d("hmm","we have found something.........");
         cursor = db.query(BUDGET_TABLE,null,selectionClause,selectionArgs,null,null,null);
-        int exp,alert;
+        int exp=0,alert=0;
         if (cursor.moveToFirst())
         {
+            Log.d("hmm","we have found something");
             exp = cursor.getInt((cursor.getColumnIndex(BUDGET_COLUMN_EXP)));
             exp += amount;
             alert = cursor.getInt((cursor.getColumnIndex(BUDGET_COLUMN_ALERT)));
@@ -162,6 +171,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             int x = db.update(BUDGET_TABLE,cv,selectionClause,selectionArgs);
             if (x>0)
             {
+                Log.d("hmm","we have found "+x);
                 if(exp >= alert)
                 {
                     //Notification
@@ -190,6 +200,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             temp.setExpense(cursor.getFloat(cursor.getColumnIndex(BUDGET_COLUMN_EXP)));
             temp.setFromdate(cursor.getString(cursor.getColumnIndex(BUDGET_COLUMN_FROM)));
             temp.setTodate(cursor.getString(cursor.getColumnIndex(BUDGET_COLUMN_TO)));
+            Log.d("to","to"+temp.getTodate());
+            Log.d("from","from"+temp.getFromdate());
             temp.setProgressVal((int) ((temp.getExpense()/temp.getAmt()) *100));
             items.add(temp);
         }

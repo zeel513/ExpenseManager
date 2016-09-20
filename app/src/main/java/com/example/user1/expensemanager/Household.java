@@ -89,7 +89,7 @@ public class Household extends Fragment {
         items.add(my);
         */
         DatabaseHandler db=new DatabaseHandler(context);
-        items=db.getBudgets("HouseHold");
+        items=db.getBudgets("household");
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView

@@ -15,6 +15,17 @@
         <item name="account_transfer"> Account Transfer </item>
         <item name="others"> Others </item>
     </string-array>
+    <string-array name="exp_ctgy">
+        <item name="household"> Household </item>
+        <item name="healthcare"> Healthcare </item>
+        <item name="travel"> Travel </item>
+        <item name="personal"> Personal </item>
+        <item name="utilities"> Utilities </item>
+        <item name="enterntainment"> Enterntainment </item>
+        <item name="family"> Family </item>
+        <item name="food"> Food </item>
+        <item name="others"> Others </item>
+    </string-array>
     <string-array name="inc_payer">
         <item name="employer"> Employer</item>
         <item name="bank"> Bank </item>

@@ -26,7 +26,7 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
     private EditText exp_date;
     private EditText exp_amt;
     private EditText exp_ref;
-    private EditText exp_ctgy;
+    private Spinner exp_ctgy;
     private Spinner exp_pay_method;
 
     Calendar c;
@@ -41,8 +41,7 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
 
         exp_date = (EditText) findViewById(R.id.expense_date);
         exp_amt = (EditText) findViewById(R.id.expense_amt);
-        exp_ctgy = (EditText) findViewById(R.id.expense_ctgy);
-        exp_ctgy.setEnabled(false);
+        exp_ctgy = (Spinner) findViewById(R.id.expense_ctgy);
         exp_pay_method = (Spinner) findViewById(R.id.expense_pay_method);
         exp_pay_method.setOnItemSelectedListener(this);
         exp_ref = (EditText) findViewById(R.id.expense_rc_no);
@@ -55,6 +54,9 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
         String text = String.valueOf(day) + "-" +  String.valueOf(month+1) + "-" + String.valueOf(year);
         exp_date.setText(text);
 
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.exp_ctgy,android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        exp_ctgy.setAdapter(adapter1);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.pay_method,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -89,7 +91,7 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
         //Log.d("date",d.toString());
         //Log.d("pay_method",pay_method);
         Toast.makeText(this,d.toString(),Toast.LENGTH_LONG).show();
-        boolean done = dbHandler.insertExpense(d,amt,"Food",pay_method,checkid);
+        boolean done = dbHandler.insertExpense(d,amt,"household",pay_method,checkid);
         //boolean done = dbHandler.insertExpense(d,100,"Food",pay_method,"xyz");
         if(!done) {
             Toast.makeText(this,"Insertion Unsuccessful",Toast.LENGTH_LONG).show();

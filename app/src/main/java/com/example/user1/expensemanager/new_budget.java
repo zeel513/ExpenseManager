@@ -6,7 +6,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.sql.Date;
@@ -17,7 +19,7 @@ public class new_budget extends AppCompatActivity {
     FloatingActionButton add;
     DatabaseHandler handler;
     Date from,to;
-    public EditText nb_category;
+    public Spinner nb_category;
     public EditText nb_fromdate;
     public EditText nb_todate;
     public EditText nb_amnt;
@@ -30,12 +32,16 @@ public class new_budget extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_budget);
 
-        nb_category=(EditText)findViewById(R.id.nb_category);
+        nb_category=(Spinner)findViewById(R.id.nb_category);
         nb_fromdate=(EditText)findViewById(R.id.nb_fromdate);
         nb_todate=(EditText)findViewById(R.id.nb_todate);
         nb_amnt=(EditText)findViewById(R.id.nb_amnt);
         nb_alert=(EditText)findViewById(R.id.nb_alrt_amnt);
         add= (FloatingActionButton) findViewById(R.id.nb_add);
+
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.exp_ctgy,android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        nb_category.setAdapter(adapter1);
 
         c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -86,13 +92,14 @@ public class new_budget extends AppCompatActivity {
     public void addBudget(View v) {
         handler=new DatabaseHandler(getApplication());
 
-        String category="food";
+        String category="household";
         String temp = nb_fromdate.getText().toString();
         StringTokenizer st=new StringTokenizer(temp,"-");
         int day=Integer.parseInt(st.nextToken());
         int month=Integer.parseInt(st.nextToken());
         int year=Integer.parseInt(st.nextToken());
         from=new Date(year-1900,month-1,day);
+        Toast.makeText(this,from.toString(),Toast.LENGTH_LONG).show();
 
         String temp2 = nb_todate.getText().toString();
         StringTokenizer st2=new StringTokenizer(temp2,"-");
@@ -100,6 +107,8 @@ public class new_budget extends AppCompatActivity {
         int month2=Integer.parseInt(st2.nextToken());
         int year2=Integer.parseInt(st2.nextToken());
         to=new Date(year2-1900,month2-1,day2);
+        Toast.makeText(this,to.toString(),Toast.LENGTH_LONG).show();
+
         int amnt = Integer.parseInt(String.valueOf(nb_amnt.getText()));
         int alert_amnt = Integer.parseInt(String.valueOf(nb_alert.getText()));
 

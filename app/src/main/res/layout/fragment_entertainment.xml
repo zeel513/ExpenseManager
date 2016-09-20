@@ -5,9 +5,8 @@
     tools:context="com.example.user1.expensemanager.Entertainment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        android:layout_height="wrap_content"
+        android:id="@+id/entertainment_list"></ListView>
 </FrameLayout>
