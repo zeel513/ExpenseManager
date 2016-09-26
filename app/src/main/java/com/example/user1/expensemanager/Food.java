@@ -7,6 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -25,6 +29,10 @@ public class Food extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    ListView list;
+    ListViewAdapter adapter;
+    ArrayList<ListItem> items;
+    Context context;
 
     public Food() {
         // Required empty public constructor
@@ -61,6 +69,36 @@ public class Food extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food, container, false);
+        context = getActivity();
+        View view = inflater.inflate(R.layout.fragment_household, container, false);
+        list = (ListView) view.findViewById(R.id.household_list);
+
+        /*items = new ArrayList<ListItem>();
+        ListItem my = new ListItem();
+        my.setTodate("B4");
+        my.setFromdate("Now");
+        my.setAlert_amt(100);
+        my.setAmt(1000);my.setExpense(100);
+        my.setProgressVal((int) ((my.getExpense()/my.getAmt()) *100));
+        items.add(my);
+        */
+        DatabaseHandler db = new DatabaseHandler(context);
+        items = db.getBudgets("food");
+        adapter = new ListViewAdapter(context, items);
+
+        // Binds the Adapter to the ListView
+        list.setAdapter(adapter);
+
+        // Capture ListView item click
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                ListItem selectedItem = items.get(position);
+                // Toast.makeText(getActivity(), "App : " + selectedItem.getFromdate() + " selected",
+                //         Toast.LENGTH_LONG).show();
+            }
+        });
+        return view;
     }
 }

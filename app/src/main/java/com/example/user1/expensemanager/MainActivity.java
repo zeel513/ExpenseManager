@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        sp = getPreferences(Context.MODE_PRIVATE);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
         curr_bal=sp.getFloat("CURRENT_BALANCE", (float) 0.0);
         mon_bal=sp.getFloat("MONTHLY_BALANCE",(float) 0.0);
         mon_income=sp.getFloat("MONTHLY_INCOME",(float) 0.0);

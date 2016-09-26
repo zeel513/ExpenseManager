@@ -1,5 +1,7 @@
 package com.example.user1.expensemanager;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +35,7 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
     DialogFragment newFragment;
     private FloatingActionButton exp_btn_add;
     Date d;
+    String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,28 +94,56 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
         //Log.d("date",d.toString());
         //Log.d("pay_method",pay_method);
         Toast.makeText(this,d.toString(),Toast.LENGTH_LONG).show();
-        boolean done = dbHandler.insertExpense(d,amt,"household",pay_method,checkid);
+        boolean done = dbHandler.insertExpense(d,amt,category,pay_method,checkid);
         //boolean done = dbHandler.insertExpense(d,100,"Food",pay_method,"xyz");
         if(!done) {
             Toast.makeText(this,"Insertion Unsuccessful",Toast.LENGTH_LONG).show();
+
         }
         else {
             Toast.makeText(this,"Insertion Successful",Toast.LENGTH_LONG).show();
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor=sp.edit();
+            Float curr_bal=sp.getFloat("CURRENT_BALANCE", (float) 0.0);
+            Float mon_bal=sp.getFloat("MONTHLY_BALANCE",(float) 0.0);
+            Float total_ex=sp.getFloat("TOTAL_EXPENSE",(float) 0.0);
+            Float mon_ex=sp.getFloat("MONTHLY_EXPENSE",(float) 0.0);
+            Float today_ex=sp.getFloat("TODAYS_EXPENSE",(float) 0.0);
+
+            curr_bal-=amt;
+            mon_bal-=amt;
+
+            total_ex +=amt;
+            mon_ex +=amt;
+            today_ex +=amt;
+            editor.putFloat("CURRENT_BALANCE",curr_bal);
+            editor.putFloat("MONTHLY_BALANCE",mon_bal);
+            editor.putFloat("TOTAL_EXPENSE",total_ex);
+            editor.putFloat("MONTHLY_EXPENSE",mon_ex);
+            editor.putFloat("TODAYS_EXPENSE",today_ex);
+
+            editor.commit();
+
         }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //        Spinner clicked = (Spinner) view;
-       /* Toast.makeText(getApplicationContext(),"in onitemselected",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"in onitemselected",Toast.LENGTH_LONG).show();
         switch(view.getId())
         {
             case R.id.expense_pay_method:
-                pay_method = String.valueOf(exp_pay_method.getSelectedItem());
+                pay_method = exp_pay_method.getSelectedItem().toString();
+                Toast.makeText(getApplicationContext(),"in onitemselected"+category,Toast.LENGTH_LONG).show();
+                break;
+            case R.id.expense_ctgy:
+                category=exp_ctgy.getSelectedItem().toString();
+                Toast.makeText(getApplicationContext(),"in onitemselected"+category,Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;
-        }*/
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.user1.expensemanager;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.IntegerRes;
 import android.support.annotation.StringDef;
 import android.support.v4.app.ListFragment;
@@ -75,7 +76,6 @@ public class income extends AppCompatActivity implements AdapterView.OnItemSelec
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         income_ctgy.setAdapter(adapter);
 
-
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.inc_payer,android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         income_payer.setAdapter(adapter1);
@@ -113,7 +113,7 @@ public class income extends AppCompatActivity implements AdapterView.OnItemSelec
         if(!done) {
             Toast.makeText(this,"Insertion Unsuccessful",Toast.LENGTH_LONG).show();
 
-            SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor=sp.edit();
             Float curr_bal=sp.getFloat("CURRENT_BALANCE", (float) 0.0);
             Float mon_bal=sp.getFloat("MONTHLY_BALANCE",(float) 0.0);

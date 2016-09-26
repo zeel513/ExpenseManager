@@ -6,6 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -15,7 +16,7 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
-public class new_budget extends AppCompatActivity {
+public class new_budget extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     FloatingActionButton add;
     DatabaseHandler handler;
     Date from,to;
@@ -26,13 +27,14 @@ public class new_budget extends AppCompatActivity {
     public EditText nb_alert;
     DialogFragment newFragment;
     Calendar c,c2;
-
+    String category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_budget);
 
         nb_category=(Spinner)findViewById(R.id.nb_category);
+        nb_category.setOnItemSelectedListener(this);
         nb_fromdate=(EditText)findViewById(R.id.nb_fromdate);
         nb_todate=(EditText)findViewById(R.id.nb_todate);
         nb_amnt=(EditText)findViewById(R.id.nb_amnt);
@@ -57,6 +59,24 @@ public class new_budget extends AppCompatActivity {
         String text2 = String.valueOf(day2) + "-" +  String.valueOf(month2+1) + "-" + String.valueOf(year2);
         nb_todate.setText(text2);
     }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //  Spinner clicked = (Spinner) view;
+        switch (view.getId()) {
+            case R.id.nb_category:
+                category = nb_category.getSelectedItem().toString();
+                Toast.makeText(this,category,Toast.LENGTH_LONG).show();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        category="others";
+    }
+
     public void showDatePickerDialog(View v){
         if(v.getId()==R.id.nb_fromdate_btn) {
             newFragment = DatePickerFragment.newInstance("new_budget_from");
@@ -92,7 +112,8 @@ public class new_budget extends AppCompatActivity {
     public void addBudget(View v) {
         handler=new DatabaseHandler(getApplication());
 
-        String category="household";
+
+        category="household";
         String temp = nb_fromdate.getText().toString();
         StringTokenizer st=new StringTokenizer(temp,"-");
         int day=Integer.parseInt(st.nextToken());
