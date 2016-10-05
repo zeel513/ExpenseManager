@@ -84,7 +84,7 @@ public class Others extends Fragment {
         items.add(my);
         */
         DatabaseHandler db = new DatabaseHandler(context);
-        items = db.getBudgets("others");
+        items = db.getBudgets("Others");
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView

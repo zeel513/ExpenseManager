@@ -84,7 +84,7 @@ public class Family extends Fragment {
         items.add(my);
         */
         DatabaseHandler db = new DatabaseHandler(context);
-        items = db.getBudgets("family");
+        items = db.getBudgets("Family");
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView

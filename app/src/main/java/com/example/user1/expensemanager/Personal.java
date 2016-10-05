@@ -84,7 +84,7 @@ public class Personal extends Fragment {
         items.add(my);
         */
         DatabaseHandler db = new DatabaseHandler(context);
-        items = db.getBudgets("personal");
+        items = db.getBudgets("Personal");
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView

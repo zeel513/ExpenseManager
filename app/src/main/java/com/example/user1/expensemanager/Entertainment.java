@@ -85,7 +85,7 @@ public class Entertainment extends Fragment {
         items.add(my);
         */
         DatabaseHandler db = new DatabaseHandler(context);
-        items = db.getBudgets("entertainment");
+        items = db.getBudgets("Entertainment");
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView

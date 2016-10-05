@@ -70,8 +70,8 @@ public class Travel extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         context = getActivity();
-        View view = inflater.inflate(R.layout.fragment_household, container, false);
-        list = (ListView) view.findViewById(R.id.household_list);
+        View view = inflater.inflate(R.layout.fragment_travel, container, false);
+        list = (ListView) view.findViewById(R.id.travel_list);
 
         /*items = new ArrayList<ListItem>();
         ListItem my = new ListItem();
@@ -83,7 +83,7 @@ public class Travel extends Fragment {
         items.add(my);
         */
         DatabaseHandler db = new DatabaseHandler(context);
-        items = db.getBudgets("travel");
+        items = db.getBudgets("Travel");
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView

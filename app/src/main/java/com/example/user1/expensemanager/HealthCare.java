@@ -83,7 +83,7 @@ public class HealthCare extends Fragment {
         items.add(my);
         */
         DatabaseHandler db = new DatabaseHandler(context);
-        items = db.getBudgets("healthcare");
+        items = db.getBudgets("Healthcare");
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView
