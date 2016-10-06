@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.sql.Date;
 import java.util.StringTokenizer;
 
-public class expense extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class expense extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
 
     private String ctgy;
     private String pay_method;
@@ -45,6 +45,8 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
         exp_date = (EditText) findViewById(R.id.expense_date);
         exp_amt = (EditText) findViewById(R.id.expense_amt);
         exp_ctgy = (Spinner) findViewById(R.id.expense_ctgy);
+        exp_ctgy.setOnItemSelectedListener(this);
+        exp_ctgy.setOnItemClickListener(this);
         exp_pay_method = (Spinner) findViewById(R.id.expense_pay_method);
         exp_pay_method.setOnItemSelectedListener(this);
         exp_ref = (EditText) findViewById(R.id.expense_rc_no);
@@ -130,12 +132,14 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //        Spinner clicked = (Spinner) view;
-        Toast.makeText(getApplicationContext(),"in onitemselected",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"in onitemselected "+view.getId(),Toast.LENGTH_LONG).show();
         switch(view.getId())
         {
             case R.id.expense_pay_method:
-                pay_method = exp_pay_method.getSelectedItem().toString();
-                Toast.makeText(getApplicationContext(),"in onitemselected"+category,Toast.LENGTH_LONG).show();
+        //        pay_method = exp_pay_method.getSelectedItem().toString();
+                pay_method=parent.getItemAtPosition(position).toString();
+                Log.d("pay_method",pay_method);
+                Toast.makeText(getApplicationContext(),"in onitemselected"+pay_method,Toast.LENGTH_LONG).show();
                 break;
             case R.id.expense_ctgy:
                 category=exp_ctgy.getSelectedItem().toString();
@@ -149,5 +153,25 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getApplicationContext(),"in onitemCLICK "+view.getId(),Toast.LENGTH_LONG).show();
+        switch(view.getId())
+        {
+            case R.id.expense_pay_method:
+                //        pay_method = exp_pay_method.getSelectedItem().toString();
+                pay_method=parent.getItemAtPosition(position).toString();
+                Log.d("pay_method",pay_method);
+                Toast.makeText(getApplicationContext(),"in onitem CLICK"+pay_method,Toast.LENGTH_LONG).show();
+                break;
+            case R.id.expense_ctgy:
+                category=exp_ctgy.getSelectedItem().toString();
+                Toast.makeText(getApplicationContext(),"in onitem CLICK "+category,Toast.LENGTH_LONG).show();
+                break;
+            default:
+                break;
+        }
     }
 }
