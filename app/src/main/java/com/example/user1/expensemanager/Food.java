@@ -83,7 +83,7 @@ public class Food extends Fragment {
         items.add(my);
         */
         DatabaseHandler db = new DatabaseHandler(context);
-        items = db.getBudgets("food");
+        items = db.getBudgets("Food");
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView

@@ -85,7 +85,7 @@ public class Utilities extends Fragment {
         items.add(my);
         */
         DatabaseHandler db = new DatabaseHandler(context);
-        items = db.getBudgets("utilities");
+        items = db.getBudgets("Utilities");
         adapter = new ListViewAdapter(context, items);
 
         // Binds the Adapter to the ListView

@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -62,12 +63,16 @@ public class new_budget extends AppCompatActivity implements AdapterView.OnItemS
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //  Spinner clicked = (Spinner) view;
+
         switch (view.getId()) {
+
             case R.id.nb_category:
                 category = nb_category.getSelectedItem().toString();
-                Toast.makeText(this,category,Toast.LENGTH_LONG).show();
+               // Toast.makeText(this,category,Toast.LENGTH_LONG).show();
                 break;
             default:
+                category = nb_category.getSelectedItem().toString();
+                //Toast.makeText(this,category,Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -111,16 +116,13 @@ public class new_budget extends AppCompatActivity implements AdapterView.OnItemS
     }
     public void addBudget(View v) {
         handler=new DatabaseHandler(getApplication());
-
-
-        category="household";
         String temp = nb_fromdate.getText().toString();
         StringTokenizer st=new StringTokenizer(temp,"-");
         int day=Integer.parseInt(st.nextToken());
         int month=Integer.parseInt(st.nextToken());
         int year=Integer.parseInt(st.nextToken());
         from=new Date(year-1900,month-1,day);
-        Toast.makeText(this,from.toString(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,from.toString(),Toast.LENGTH_LONG).show();
 
         String temp2 = nb_todate.getText().toString();
         StringTokenizer st2=new StringTokenizer(temp2,"-");
@@ -128,17 +130,24 @@ public class new_budget extends AppCompatActivity implements AdapterView.OnItemS
         int month2=Integer.parseInt(st2.nextToken());
         int year2=Integer.parseInt(st2.nextToken());
         to=new Date(year2-1900,month2-1,day2);
-        Toast.makeText(this,to.toString(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,to.toString(),Toast.LENGTH_LONG).show();
 
         int amnt = Integer.parseInt(String.valueOf(nb_amnt.getText()));
         int alert_amnt = Integer.parseInt(String.valueOf(nb_alert.getText()));
-
-        Boolean done=handler.insertBudget(category,from,to,amnt,alert_amnt);
+        Boolean done=false;
+        if (category == "")
+        {
+            done=handler.insertBudget("others",from,to,amnt,alert_amnt);
+        }
+        else
+        {
+            done=handler.insertBudget(category,from,to,amnt,alert_amnt);
+        }
         if(!done) {
-            Toast.makeText(this,"Insertion Unsuccessful",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Budget Set",Toast.LENGTH_LONG).show();
         }
         else {
-            Toast.makeText(this,"Insertion Successful",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Budget not set",Toast.LENGTH_LONG).show();
         }
     }
 }

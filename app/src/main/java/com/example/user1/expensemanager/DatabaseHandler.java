@@ -157,6 +157,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 category +" AND" +date+ " <= " + BUDGET_COLUMN_TO + " AND "+
                 date + " >= "+ BUDGET_COLUMN_FROM;;*/
         Log.d("hmm","we have found something.........");
+        try {
+            cursor = db.query(BUDGET_TABLE,null,selectionClause,selectionArgs,null,null,null);
+        }
+        catch (Exception ex){
+            Log.d("X",ex.toString());
+
+        }
         cursor = db.query(BUDGET_TABLE,null,selectionClause,selectionArgs,null,null,null);
         int exp=0,alert=0;
         if (cursor.moveToFirst())
