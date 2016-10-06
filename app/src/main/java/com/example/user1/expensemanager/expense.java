@@ -46,7 +46,7 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
         exp_amt = (EditText) findViewById(R.id.expense_amt);
         exp_ctgy = (Spinner) findViewById(R.id.expense_ctgy);
         exp_ctgy.setOnItemSelectedListener(this);
-        exp_ctgy.setOnItemClickListener(this);
+//        exp_ctgy.setOnItemClickListener(this);
         exp_pay_method = (Spinner) findViewById(R.id.expense_pay_method);
         exp_pay_method.setOnItemSelectedListener(this);
         exp_ref = (EditText) findViewById(R.id.expense_rc_no);
@@ -106,11 +106,11 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
             Toast.makeText(this,"Insertion Successful",Toast.LENGTH_LONG).show();
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor=sp.edit();
-            Float curr_bal=sp.getFloat("CURRENT_BALANCE", (float) 0.0);
-            Float mon_bal=sp.getFloat("MONTHLY_BALANCE",(float) 0.0);
-            Float total_ex=sp.getFloat("TOTAL_EXPENSE",(float) 0.0);
-            Float mon_ex=sp.getFloat("MONTHLY_EXPENSE",(float) 0.0);
-            Float today_ex=sp.getFloat("TODAYS_EXPENSE",(float) 0.0);
+            float curr_bal=sp.getFloat("CURRENT_BALANCE", (float) 0.0);
+            float mon_bal=sp.getFloat("MONTHLY_BALANCE",(float) 0.0);
+            float total_ex=sp.getFloat("TOTAL_EXPENSE",(float) 0.0);
+            float mon_ex=sp.getFloat("MONTHLY_EXPENSE",(float) 0.0);
+            float today_ex=sp.getFloat("TODAYS_EXPENSE",(float) 0.0);
 
             curr_bal-=amt;
             mon_bal-=amt;

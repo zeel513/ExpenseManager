@@ -2,6 +2,7 @@ package com.example.user1.expensemanager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -19,11 +20,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     SharedPreferences sp;
-
+    TextView curr_bal1;
+    TextView this_month_bal1;
+    TextView this_month_income1;
+    TextView today_ex1;
+    TextView month_ex1;
+    TextView total_ex1;
     public double curr_bal=0; //get it from database
     public double mon_bal=0;
     public double mon_income=0;
@@ -36,7 +43,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        curr_bal1=(TextView)findViewById((R.id.curr_bal));
+        this_month_bal1=(TextView)findViewById((R.id.monthly_bal));
+        this_month_income1=(TextView)findViewById((R.id.this_month_income));
+        today_ex1=(TextView)findViewById((R.id.today_ex));
+        month_ex1=(TextView)findViewById((R.id.this_month_ex));
+        total_ex1=(TextView)findViewById((R.id.total_ex));
     /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +92,18 @@ public class MainActivity extends AppCompatActivity
         total_ex=sp.getFloat("TOTAL_EXPENSE",(float) 0.0);
         mon_ex=sp.getFloat("MONTHLY_EXPENSE",(float) 0.0);
         today_ex=sp.getFloat("TODAYS_EXPENSE",(float) 0.0);
+
+        curr_bal1.setText(String.valueOf(curr_bal));
+        this_month_income1.setText(String.valueOf(mon_income));
+        this_month_bal1.setText(String.valueOf(mon_bal));
+        today_ex1.setText(String.valueOf(today_ex));
+        month_ex1.setText(String.valueOf(mon_ex));
+        total_ex1.setText(String.valueOf(total_ex));
+
+        IntentFilter filter = new IntentFilter("android.intent.action.DATE_CHANGED");
+
+        DateReceiver myReceiver = new DateReceiver();
+        registerReceiver(myReceiver, filter);
     }
 
     @Override

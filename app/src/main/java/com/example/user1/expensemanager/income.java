@@ -110,25 +110,26 @@ public class income extends AppCompatActivity implements AdapterView.OnItemSelec
         String checkid = String.valueOf(income_ref.getText());
 
         boolean done = dbHandler.insertIncome(d,amt,payer,category,pay_method,checkid);
-        if(!done) {
-            Toast.makeText(this,"Insertion Unsuccessful",Toast.LENGTH_LONG).show();
+        if(done) {
+            Toast.makeText(this,"Insertion successful",Toast.LENGTH_LONG).show();
 
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor=sp.edit();
-            Float curr_bal=sp.getFloat("CURRENT_BALANCE", (float) 0.0);
-            Float mon_bal=sp.getFloat("MONTHLY_BALANCE",(float) 0.0);
-            Float mon_income=sp.getFloat("MONTHLY_INCOME",(float) 0.0);
+            float curr_bal=sp.getFloat("CURRENT_BALANCE", (float) 0.0);
+            float mon_bal=sp.getFloat("MONTHLY_BALANCE",(float) 0.0);
+            float mon_income=sp.getFloat("MONTHLY_INCOME",(float) 0.0);
             curr_bal+=amt;
             mon_bal+=amt;
             mon_income+=amt;
             editor.putFloat("CURRENT_BALANCE",curr_bal);
+            Log.d("curr bal",String.valueOf(curr_bal));
             editor.putFloat("MONTHLY_BALANCE",mon_bal);
             editor.putFloat("MONTHLY_INCOME",mon_income);
             editor.commit();
 
         }
         else {
-            Toast.makeText(this,"Insertion Successful",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Insertion Unsuccessful",Toast.LENGTH_LONG).show();
         }
     }
 

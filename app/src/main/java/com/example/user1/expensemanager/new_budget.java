@@ -144,10 +144,10 @@ public class new_budget extends AppCompatActivity implements AdapterView.OnItemS
             done=handler.insertBudget(category,from,to,amnt,alert_amnt);
         }
         if(!done) {
-            Toast.makeText(this,"Budget Set",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Budget not Set",Toast.LENGTH_LONG).show();
         }
         else {
-            Toast.makeText(this,"Budget not set",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Budget set",Toast.LENGTH_LONG).show();
         }
     }
 }
