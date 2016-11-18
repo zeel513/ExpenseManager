@@ -55,7 +55,9 @@ public class new_budget extends AppCompatActivity implements AdapterView.OnItemS
 
         c2 = Calendar.getInstance();
         int year2 = c2.get(Calendar.YEAR);
-        int month2 = c2.get(Calendar.MONTH);
+        int month2 = c2.get(Calendar.MONTH)+1;
+        if(month2==12)
+            month2=0;
         int day2 = c2.get(Calendar.DAY_OF_MONTH);
         String text2 = String.valueOf(day2) + "-" +  String.valueOf(month2+1) + "-" + String.valueOf(year2);
         nb_todate.setText(text2);
@@ -134,6 +136,10 @@ public class new_budget extends AppCompatActivity implements AdapterView.OnItemS
 
         int amnt = Integer.parseInt(String.valueOf(nb_amnt.getText()));
         int alert_amnt = Integer.parseInt(String.valueOf(nb_alert.getText()));
+        if(amnt<alert_amnt) {
+            alert_amnt = amnt;
+            nb_alert.setText(String.valueOf(alert_amnt));
+        }
         Boolean done=false;
         if (category == "")
         {

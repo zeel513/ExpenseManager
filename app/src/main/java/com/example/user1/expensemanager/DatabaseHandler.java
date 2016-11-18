@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
 
 /**
@@ -130,13 +131,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
        // Log.d("from","from"+from.toString());
         contentValues.put(BUDGET_COLUMN_FROM,from.toString());
         contentValues.put(BUDGET_COLUMN_TO,to.toString());
-        Log.d("to","to"+contentValues.getAsString(BUDGET_COLUMN_TO));
+//        Log.d("to","to"+contentValues.getAsString(BUDGET_COLUMN_TO));
         //Log.d("from","from"+from.toString());
         contentValues.put(BUDGET_COLUMN_CATEGORY,category);
         contentValues.put(BUDGET_COLUMN_AMOUNT,amt);
         contentValues.put(BUDGET_COLUMN_ALERT,alert_amt);
         contentValues.put(BUDGET_COLUMN_EXP,0);
-
+        Log.d("BUDGET","adding budget "+category);
         long id = 0;
         id = db.insert(BUDGET_TABLE,null,contentValues);// For time being it is null it should not be though
         if (id > 0)
@@ -156,7 +157,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
       /*  String query = "select * from " + BUDGET_TABLE+ " where " +BUDGET_COLUMN_CATEGORY+" ="+
                 category +" AND" +date+ " <= " + BUDGET_COLUMN_TO + " AND "+
                 date + " >= "+ BUDGET_COLUMN_FROM;;*/
-        Log.d("hmm","we have found something.........");
+        //Log.d("hmm","we have found something.........");
         try {
             cursor = db.query(BUDGET_TABLE,null,selectionClause,selectionArgs,null,null,null);
         }
@@ -168,7 +169,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         int exp=0,alert=0;
         if (cursor.moveToFirst())
         {
-            Log.d("hmm","we have found something");
+            //Log.d("hmm","we have found something");
             exp = cursor.getInt((cursor.getColumnIndex(BUDGET_COLUMN_EXP)));
             exp += amount;
             alert = cursor.getInt((cursor.getColumnIndex(BUDGET_COLUMN_ALERT)));
@@ -178,7 +179,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             int x = db.update(BUDGET_TABLE,cv,selectionClause,selectionArgs);
             if (x>0)
             {
-                Log.d("hmm","we have found "+x);
+              //  Log.d("hmm","we have found "+x);
                 if(exp >= alert)
                 {
                     //Notification
@@ -196,7 +197,17 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         ArrayList<ListItem> items=new ArrayList<ListItem>();
         Cursor cursor;
         SQLiteDatabase db = getReadableDatabase();
-        String selectionClause = BUDGET_COLUMN_CATEGORY+" =?";
+        long longDate = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String dateString = sdf.format(longDate);
+        StringTokenizer st=new StringTokenizer(dateString,"-");
+        int day=Integer.parseInt(st.nextToken());
+        int month=Integer.parseInt(st.nextToken());
+        int year=Integer.parseInt(st.nextToken());
+        Date today=new Date(year-1900,month-1,day);
+       // Log.d("DATE",today.toString());
+
+        String selectionClause = BUDGET_COLUMN_CATEGORY+" =? AND "+BUDGET_COLUMN_TO+" >= "+today;
         String [] selectionArgs= new String[] {category};
         cursor = db.query(BUDGET_TABLE,null,selectionClause,selectionArgs,null,null,null);
         ListItem temp=new ListItem();
@@ -207,8 +218,42 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             temp.setExpense(cursor.getFloat(cursor.getColumnIndex(BUDGET_COLUMN_EXP)));
             temp.setFromdate(cursor.getString(cursor.getColumnIndex(BUDGET_COLUMN_FROM)));
             temp.setTodate(cursor.getString(cursor.getColumnIndex(BUDGET_COLUMN_TO)));
-            Log.d("to","to"+temp.getTodate());
-            Log.d("from","from"+temp.getFromdate());
+            temp.setCategory(category);
+         //   Log.d("DATE","to"+temp.getTodate());
+         //   Log.d("from","from"+temp.getFromdate());
+            temp.setProgressVal((int) ((temp.getExpense()/temp.getAmt()) *100));
+            items.add(temp);
+        }
+        return items;
+    }
+    public ArrayList<ListItem> getAlertBudgets()
+    {
+        ArrayList<ListItem> items=new ArrayList<ListItem>();
+        Cursor cursor;
+        SQLiteDatabase db = getReadableDatabase();
+        long longDate = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String dateString = sdf.format(longDate);
+        StringTokenizer st=new StringTokenizer(dateString,"-");
+        int day=Integer.parseInt(st.nextToken());
+        int month=Integer.parseInt(st.nextToken());
+        int year=Integer.parseInt(st.nextToken());
+        Date today=new Date(year-1900,month-1,day);
+        String selectionClause = BUDGET_COLUMN_EXP+" >= "+BUDGET_COLUMN_ALERT
+                +" AND "+BUDGET_COLUMN_AMOUNT+" >= "+BUDGET_COLUMN_EXP+" AND "+BUDGET_COLUMN_TO+" >= "+today;;
+
+        cursor = db.query(BUDGET_TABLE,null,selectionClause,null,null,null,null);
+        ListItem temp=new ListItem();
+        while(cursor.moveToNext())
+        {
+            temp.setAmt(cursor.getFloat(cursor.getColumnIndex(BUDGET_COLUMN_AMOUNT)));
+            temp.setAlert_amt(cursor.getFloat(cursor.getColumnIndex(BUDGET_COLUMN_ALERT)));
+            temp.setExpense(cursor.getFloat(cursor.getColumnIndex(BUDGET_COLUMN_EXP)));
+            temp.setFromdate(cursor.getString(cursor.getColumnIndex(BUDGET_COLUMN_FROM)));
+            temp.setTodate(cursor.getString(cursor.getColumnIndex(BUDGET_COLUMN_TO)));
+            temp.setCategory(cursor.getString(cursor.getColumnIndex(BUDGET_COLUMN_CATEGORY)));
+           // Log.d("to","to"+temp.getTodate());
+           // Log.d("from","from"+temp.getFromdate());
             temp.setProgressVal((int) ((temp.getExpense()/temp.getAmt()) *100));
             items.add(temp);
         }

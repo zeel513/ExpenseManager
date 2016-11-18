@@ -99,16 +99,22 @@ public class income extends AppCompatActivity implements AdapterView.OnItemSelec
 
     public void save(View v) {
         DatabaseHandler dbHandler = new DatabaseHandler(this);
-        Float amt = Float.parseFloat(String.valueOf(income_amt.getText()));
+        Float amt;
+        if(income_amt.getText().equals(""))
+            amt=Float.valueOf(0);
+        else
+            amt =Float.parseFloat(String.valueOf(income_amt.getText()));
         String temp = income_date.getText().toString();
         StringTokenizer st=new StringTokenizer(temp,"-");
         int day=Integer.parseInt(st.nextToken());
         int month=Integer.parseInt(st.nextToken());
         int year=Integer.parseInt(st.nextToken());
         d=new Date(year-1900,month-1,day);
-
-        String checkid = String.valueOf(income_ref.getText());
-
+        String checkid;
+        if(income_ref.getText().equals(""))
+            checkid="0";
+        else
+            checkid=String.valueOf(income_ref.getText());
         boolean done = dbHandler.insertIncome(d,amt,payer,category,pay_method,checkid);
         if(done) {
             Toast.makeText(this,"Insertion successful",Toast.LENGTH_LONG).show();

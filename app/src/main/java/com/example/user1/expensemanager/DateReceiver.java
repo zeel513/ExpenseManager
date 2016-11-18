@@ -19,11 +19,12 @@ public class DateReceiver extends BroadcastReceiver{
         SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor=sp.edit();
         editor.putFloat("TODAYS_EXPENSE",(float) 0.0);
-        if(c.get(Calendar.DAY_OF_MONTH)==1)
+        if(c.get(Calendar.MONTH)!=sp.getInt("STORED_MONTH",0))
         {
             editor.putFloat("MONTHLY_INCOME",(float) 0.0);
             editor.putFloat("MONTHLY_BALANCE",(float) 0.0);
             editor.putFloat("MONTHLY_EXPENSE",(float) 0.0);
+            editor.putInt("STORED_MONTH",Calendar.MONTH);
         }
         editor.commit();
     }

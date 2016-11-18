@@ -1,5 +1,6 @@
 package com.example.user1.expensemanager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -89,13 +90,21 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
         int month=Integer.parseInt(st.nextToken());
         int year=Integer.parseInt(st.nextToken());
         d=new Date(year-1900,month-1,day);
-        int amt = Integer.parseInt(String.valueOf(exp_amt.getText()));
-        String checkid = String.valueOf(exp_ref.getText());
+        int amt;
+        if(exp_amt.getText()==null)
+            amt=0;
+        else
+            amt = Integer.parseInt(String.valueOf(exp_amt.getText()));
+        String checkid;
+        if(exp_ref.getText()==null)
+            checkid="0";
+        else
+            checkid = String.valueOf(exp_ref.getText());
         pay_method = String.valueOf(exp_pay_method.getSelectedItem());
        // ctgy = String.valueOf(exp_ctgy.getText());
         //Log.d("date",d.toString());
         //Log.d("pay_method",pay_method);
-        Toast.makeText(this,d.toString(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,d.toString(),Toast.LENGTH_LONG).show();
         boolean done = dbHandler.insertExpense(d,amt,category,pay_method,checkid);
         //boolean done = dbHandler.insertExpense(d,100,"Food",pay_method,"xyz");
         if(!done) {
@@ -127,6 +136,8 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
             editor.commit();
 
         }
+        Intent background=new Intent(this,BackgroundService.class);
+        startService(background);
     }
 
     @Override
@@ -136,16 +147,16 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
         {
             case R.id.expense_pay_method:
                 pay_method = exp_pay_method.getSelectedItem().toString();
-                Toast.makeText(this,"in onitemselectedppp"+pay_method,Toast.LENGTH_LONG).show();
+//                Toast.makeText(this,"in onitemselectedppp"+pay_method,Toast.LENGTH_LONG).show();
                 break;
             case R.id.expense_ctgy:
                 category=exp_ctgy.getSelectedItem().toString();
-                Toast.makeText(this,"in onitemselected"+category,Toast.LENGTH_LONG).show();
+  //              Toast.makeText(this,"in onitemselected"+category,Toast.LENGTH_LONG).show();
                 break;
             default:
                 category=exp_ctgy.getSelectedItem().toString();
                 pay_method = exp_pay_method.getSelectedItem().toString();
-                Toast.makeText(this,"in onitemselectedccc"+category+pay_method,Toast.LENGTH_LONG).show();
+    //            Toast.makeText(this,"in onitemselectedccc"+category+pay_method,Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -164,11 +175,11 @@ public class expense extends AppCompatActivity implements AdapterView.OnItemSele
                 //        pay_method = exp_pay_method.getSelectedItem().toString();
                 pay_method=parent.getItemAtPosition(position).toString();
                 Log.d("pay_method",pay_method);
-                Toast.makeText(getApplicationContext(),"in onitem CLICK"+pay_method,Toast.LENGTH_LONG).show();
+      //          Toast.makeText(getApplicationContext(),"in onitem CLICK"+pay_method,Toast.LENGTH_LONG).show();
                 break;
             case R.id.expense_ctgy:
                 category=exp_ctgy.getSelectedItem().toString();
-                Toast.makeText(getApplicationContext(),"in onitem CLICK "+category,Toast.LENGTH_LONG).show();
+        //        Toast.makeText(getApplicationContext(),"in onitem CLICK "+category,Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;

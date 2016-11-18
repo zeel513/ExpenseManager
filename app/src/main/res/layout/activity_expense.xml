@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:rowCount="4"
-        android:columnCount="3"
+        android:columnCount="2"
         android:id="@+id/gridLayout">
         <TextView
             android:layout_width="wrap_content"
@@ -23,9 +23,18 @@
             android:id="@+id/textView14"
             android:textSize="14sp"
             android:layout_gravity="left|center_vertical" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:rowCount="1"
+            android:columnCount="2"
+            android:id="@+id/g2">
 
         <EditText
-            android:layout_width="176dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
@@ -40,7 +49,7 @@
             android:layout_gravity="center_vertical|right"
             android:onClick="showDatePickerDialog"
             android:src="@android:drawable/ic_menu_my_calendar" />
-
+        </LinearLayout>
         <TextView
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -48,22 +57,17 @@
             android:text="Amount:"
             android:id="@+id/textView20"
             android:textSize="14sp"
-            android:layout_gravity="left|center_vertical" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/expense_amt"
-            android:layout_gravity="center_vertical|right" />
-
-        <ImageButton
-            android:layout_width="@android:dimen/notification_large_icon_width"
-            android:layout_height="@android:dimen/notification_large_icon_height"
-            android:id="@+id/imageButton6"
-            android:layout_gravity="center_vertical|right"
-            android:baselineAlignBottom="false" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,21 +76,16 @@
             android:text="Catagory:"
             android:id="@+id/textView21"
             android:textSize="14sp"
-            android:layout_gravity="left|center_vertical" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
         <Spinner
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/expense_ctgy"
-            android:layout_gravity="center_vertical|right"/>
-
-        <ImageButton
-            android:layout_width="@android:dimen/notification_large_icon_width"
-            android:layout_height="@android:dimen/notification_large_icon_height"
-            android:id="@+id/expense_ctgy_btn"
-            android:layout_gravity="center_vertical|right"
-            android:onClick="showCategory"/>
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
         <TextView
             android:layout_width="110dp"
@@ -95,16 +94,17 @@
             android:text="Payment Method:"
             android:id="@+id/textView22"
             android:textSize="14sp"
-            android:layout_gravity="left|center_vertical" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
         <Spinner
-            android:layout_width="176dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/expense_pay_method"
-            android:layout_gravity="center_vertical|right"
+            android:layout_gravity="left|center_vertical"
 
-            />
+            android:layout_marginBottom="20dp" />
     </GridLayout>
 
     <LinearLayout
@@ -141,6 +141,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="66dp"
-        android:onClick="save"/>
+        android:onClick="save"
+        android:src="@drawable/ic_add_circle_black_24dp" />
 
 </RelativeLayout>

@@ -13,7 +13,7 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="3"
+        android:columnCount="2"
         android:rowCount="5">
         <TextView
             android:layout_width="wrap_content"
@@ -22,20 +22,16 @@
             android:text="Category:"
             android:id="@+id/textView24"
             android:textSize="14sp"
-            android:layout_gravity="left|center_vertical" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
         <Spinner
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/nb_category"
-            android:layout_gravity="center_vertical|right" />
-
-        <ImageButton
-            android:layout_width="@android:dimen/notification_large_icon_width"
-            android:layout_height="@android:dimen/notification_large_icon_height"
-            android:id="@+id/nb_ctgy_btn"
-            android:layout_gravity="center_vertical|right" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,9 +41,18 @@
             android:id="@+id/textView25"
             android:textSize="14sp"
             android:layout_gravity="left|center_vertical" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:rowCount="1"
+            android:columnCount="2"
+            android:id="@+id/g2">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
@@ -63,7 +68,7 @@
             android:layout_gravity="center_vertical|right"
             android:src="@android:drawable/ic_menu_my_calendar"
             android:onClick="showDatePickerDialog"/>
-
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,17 +76,28 @@
             android:text="To:"
             android:id="@+id/textView26"
             android:textSize="14sp"
-            android:layout_gravity="left|center_vertical" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:rowCount="1"
+            android:columnCount="2"
+            android:id="@+id/g3">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
             android:id="@+id/nb_todate"
             android:text="date"
             android:layout_gravity="center_vertical|right"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:layout_marginBottom="20dp" />
 
         <ImageButton
             android:layout_width="@android:dimen/notification_large_icon_width"
@@ -90,7 +106,7 @@
             android:layout_gravity="center_vertical|right"
             android:src="@android:drawable/ic_menu_my_calendar"
             android:onClick="showDatePickerDialog"/>
-
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,21 +114,17 @@
             android:text="Amount:"
             android:id="@+id/textView27"
             android:textSize="14sp"
-            android:layout_gravity="left|center_vertical" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/nb_amnt"
-            android:layout_gravity="center_vertical|right" />
-
-        <ImageButton
-            android:layout_width="@android:dimen/notification_large_icon_width"
-            android:layout_height="@android:dimen/notification_large_icon_height"
-            android:id="@+id/nb_amnt_btn"
-            android:layout_gravity="center_vertical|right" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
         <TextView
             android:layout_width="100dp"
@@ -121,21 +133,18 @@
             android:text="Alert Amount:"
             android:id="@+id/textView28"
             android:textSize="14sp"
-            android:layout_gravity="left|center_vertical" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/nb_alrt_amnt"
-            android:layout_gravity="center_vertical|right" />
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginBottom="20dp" />
 
-        <ImageButton
-            android:layout_width="@android:dimen/notification_large_icon_width"
-            android:layout_height="@android:dimen/notification_large_icon_height"
-            android:id="@+id/nb_alrt_amnt_btn"
-            android:layout_gravity="center_vertical|right" />
 
     </GridLayout>
 

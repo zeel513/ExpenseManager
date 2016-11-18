@@ -1,5 +1,7 @@
 package com.example.user1.expensemanager;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -7,9 +9,11 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +43,8 @@ public class MainActivity extends AppCompatActivity
     public double total_ex=0;
     public double mon_ex=0;
     public double today_ex=0;
+
+    static Calendar c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,24 +94,67 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor=sp.edit();
+        c=Calendar.getInstance();
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
         curr_bal=sp.getFloat("CURRENT_BALANCE", (float) 0.0);
-        mon_bal=sp.getFloat("MONTHLY_BALANCE",(float) 0.0);
+        mon_bal=sp.getFloat("MONTHLY_BALANCE", (float) curr_bal);
         mon_income=sp.getFloat("MONTHLY_INCOME",(float) 0.0);
         total_ex=sp.getFloat("TOTAL_EXPENSE",(float) 0.0);
         mon_ex=sp.getFloat("MONTHLY_EXPENSE",(float) 0.0);
         today_ex=sp.getFloat("TODAYS_EXPENSE",(float) 0.0);
+        int STORED_MONTH=sp.getInt("STORED_MONTH",-1);
+        int STORED_DAY=sp.getInt("STORED_DAY",-1);
 
         curr_bal1.setText(String.valueOf(curr_bal));
+        if(STORED_MONTH!=month)
+        {
+            STORED_MONTH=month;
+            STORED_DAY=day;
+            editor.putInt("STORED_MONTH",STORED_MONTH);
+            editor.putInt("STORED_DAY",day);
+            mon_income=0;
+            mon_bal=0;
+            today_ex=0;
+            mon_ex=0;
+            editor.putFloat("MONTHLY_BALANCE",(float)0.0);
+            editor.putFloat("MONTHLY_INCOME",(float)0.0);
+            editor.putFloat("MONTHLY_EXPENSE",(float)0.0);
+            editor.putFloat("TODAYS_EXPENSE",(float)0.0);
+        }
         this_month_income1.setText(String.valueOf(mon_income));
         this_month_bal1.setText(String.valueOf(mon_bal));
+        if(STORED_DAY!=day)
+        {
+            STORED_DAY=day;
+            today_ex=0;
+            editor.putInt("STORED_DAY",STORED_DAY);
+            editor.putFloat("TODAYS_EXPENSE",(float)0.0);
+        }
+        editor.putBoolean("clear",true);
+        editor.commit();
+
+//        editor.commit();
         today_ex1.setText(String.valueOf(today_ex));
         month_ex1.setText(String.valueOf(mon_ex));
         total_ex1.setText(String.valueOf(total_ex));
 
-        IntentFilter filter = new IntentFilter("android.intent.action.DATE_CHANGED");
+   //     IntentFilter filter = new IntentFilter("android.intent.action.DATE_CHANGED");
 
-        DateReceiver myReceiver = new DateReceiver();
-        registerReceiver(myReceiver, filter);
+  //      DateReceiver myReceiver = new DateReceiver();
+    //    registerReceiver(myReceiver, filter);
+
+        //alarm for notification
+
+        Intent alarm=new Intent(this,AlarmReceiver.class);
+        boolean alarmRunning=(PendingIntent.getBroadcast(this,0,alarm,PendingIntent.FLAG_NO_CREATE)!=null);
+        if(alarmRunning==false)
+        {
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarm, 0);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 15000, pendingIntent);
+        }
     }
 
     @Override
@@ -134,10 +185,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.about) {
             return true;
         }
-        else if(id == R.id.sync)
-        {
-            return true;
-        }
 
 
         return super.onOptionsItemSelected(item);
@@ -163,9 +210,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(),expense.class);
             startActivity(intent);
         } else if (id == R.id.nav_calc) {
-
-        } else if (id == R.id.nav_conv) {
-
+            Intent intent = new Intent(getApplicationContext(),Calculator.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -26,10 +26,6 @@
                 android:id="@+id/nav_calc"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Calculator" />
-            <item
-                android:id="@+id/nav_conv"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Currency-Converter" />
         </menu>
     </item>
 

@@ -72,8 +72,8 @@ public class Entertainment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         context = getActivity();
-        View view = inflater.inflate(R.layout.fragment_household, container, false);
-        list = (ListView) view.findViewById(R.id.household_list);
+        View view = inflater.inflate(R.layout.fragment_entertainment, container, false);
+        list = (ListView) view.findViewById(R.id.entertainment_list);
 
         /*items = new ArrayList<ListItem>();
         ListItem my = new ListItem();

@@ -1,6 +1,8 @@
 package com.example.user1.expensemanager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -72,6 +74,11 @@ public class budget extends AppCompatActivity {
             }
         });
 */
+        //notification
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("clear",true);
+        editor.commit();
     }
 
     private void setupViewPager(ViewPager viewPager)

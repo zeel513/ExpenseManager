@@ -5,9 +5,11 @@
     tools:context="com.example.user1.expensemanager.Travel">
 
     <!-- TODO: Update blank fragment layout -->
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/travel_list"></ListView>
+
 
 </FrameLayout>
